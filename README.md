@@ -6,6 +6,7 @@ Simple experiment recreating the _openai_ gpt prompt using [Tauri](https://githu
 
 ![](https://i.imgur.com/Hhaoguc.gif)
 ![](https://i.imgur.com/cq1FHIG.png)
+![](https://i.imgur.com/zhxRez6.png)
 
 With `native` titlebar
 <br/>
