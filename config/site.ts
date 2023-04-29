@@ -1,4 +1,4 @@
-import { NavItem } from "@/types/nav"
+import { NavItem } from "@/types/common"
 
 interface SiteConfig {
   name: string
@@ -12,18 +12,17 @@ interface SiteConfig {
 }
 
 export const siteConfig: SiteConfig = {
-  name: "Next.js",
-  description:
-    "Beautifully designed components built with Radix UI and Tailwind CSS.",
+  name: "Itihasa",
+  description: "Experimental bot for LLM exploration.",
   mainNav: [
-    {
-      title: "Home",
-      href: "/",
-    },
+    // {
+    //   title: "Home",
+    //   href: "/",
+    // },
   ],
   links: {
-    twitter: "https://twitter.com/shadcn",
-    github: "https://github.com/shadcn/ui",
-    docs: "https://ui.shadcn.com",
+    twitter: "https://twitter.com/pikaso",
+    github: "https://github.com/sinhaguild",
+    docs: "#",
   },
 }

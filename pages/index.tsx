@@ -1,52 +1,172 @@
-import Head from "next/head"
-import Link from "next/link"
+// import { useUser } from "@auth0/nextjs-auth0/client";
 
-import { siteConfig } from "@/config/site"
-import { Layout } from "@/components/layout"
-import { buttonVariants } from "@/components/ui/button"
+import {
+  FrequencyPenalty,
+  LLMChildContainer,
+  LLMHoverLabel,
+  LLMInputGroup,
+  LLMMessagesGroup,
+  LLMModelSelect,
+  LLMParentContainer,
+  MaxLengthSelector,
+  PresencePenalty,
+  TemperatureSelector,
+  TopPSelector,
+} from "components/gpt"
+import { oaiModelsData } from "lib/constants"
+import { ChevronsUpDown } from "lucide-react"
+import { useState } from "react"
+import { LLMMessageProps } from "types/gpt"
 
-export default function IndexPage() {
+import { Container } from "@/components/boilerplate"
+import { RIcons } from "@/components/boilerplate/icons-radix"
+import { Button } from "@/components/ui/button"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
+export default function LLMPage() {
+  const BASE_MODEL = "api/openaisse"
+  // const { user } = useUser();
+  const [chatlog, setChatlog] = useState<LLMMessageProps[]>([])
+  const [currentModel, setCurrentModel] = useState(BASE_MODEL)
+  // options
+  const [temperature, setTemperature] = useState([0.56])
+  const [maxTokens, setMaxTokens] = useState([256])
+  const [topP, setTopP] = useState([0.9])
+  const [frequencyPenalty, setFrequencyPenalty] = useState([0])
+  const [presencePenalty, setPresencePenalty] = useState([0])
+  const [pMenu, setPMenu] = useState(true)
+
+  // console.log(`temperature:${temperature}`);
+
+  // if (user) {
   return (
-    <Layout>
-      <Head>
-        <title>Next.js</title>
-        <meta
-          name="description"
-          content="Next.js template for building apps with Radix UI and Tailwind CSS"
-        />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <section className="container grid items-center gap-6 pt-6 pb-8 md:py-10">
-        <div className="flex max-w-[980px] flex-col items-start gap-2">
-          <h1 className="text-3xl font-extrabold leading-tight tracking-tighter sm:text-3xl md:text-5xl lg:text-6xl">
-            Beautifully designed components <br className="hidden sm:inline" />
-            built with Radix UI and Tailwind CSS.
-          </h1>
-          <p className="max-w-[700px] text-lg text-slate-700 dark:text-slate-400 sm:text-xl">
-            Accessible and customizable components that you can copy and paste
-            into your apps. Free. Open Source. And Next.js 13 Ready.
-          </p>
+    <Container>
+      {/* <DynamicCustomTitleBar /> */}
+      <Tabs defaultValue="gpt">
+        <div className="grid items-center grid-cols-1">
+          <LLMParentContainer className="grid-cols-6 gap-1">
+            <LLMChildContainer
+              className="h-full col-span-2"
+              childClassName="input"
+            >
+              <LLMInputGroup
+                setChatlog={setChatlog}
+                chatlog={chatlog}
+                currentModel={currentModel}
+                temperature={temperature}
+                maxTokens={maxTokens}
+                topP={topP}
+                frequencyPenalty={frequencyPenalty}
+                presencePenalty={presencePenalty}
+              />
+            </LLMChildContainer>
+
+            <LLMChildContainer
+              className="h-full col-span-3 border border-slate-300 dark:border-slate-700 rounded-xl"
+              childClassName="messages"
+            >
+              <TabsContent value="gpt" className="p-0 mt-0 border-0">
+                <LLMMessagesGroup chatlog={chatlog} />
+              </TabsContent>
+              <TabsContent value="dalle" className="p-0 mt-0 border-0">
+                {/* <LLMMessagesGroup chatlog={chatlog} /> */}
+                dalle content
+              </TabsContent>
+              {/* <LLMMessagesGroup chatlog={chatlog} user={user} /> */}
+            </LLMChildContainer>
+
+            <LLMChildContainer className="flex-col h-full col-span-1 space-y-4 sm:flex">
+              <div className="grid">
+                <LLMHoverLabel
+                  title="Mode"
+                  description="Choose the interface that best suits your task. You can
+                provide: a simple prompt for a transformer to insert or
+                complete, or some text with instructions to generate images
+                from."
+                />
+                <TabsList className="grid w-48 grid-cols-2">
+                  <TabsTrigger value="gpt">
+                    <span className="sr-only">GPT</span>
+                    <RIcons.gpt className="w-5 h-5" />
+                  </TabsTrigger>
+                  <TabsTrigger value="dalle">
+                    <span className="sr-only">Dalle</span>
+                    <RIcons.dalle className="w-5 h-5" />
+                  </TabsTrigger>
+                </TabsList>
+              </div>
+              <LLMHoverLabel
+                title="Model"
+                description="Choose from the available list of models. Hover over the
+              models to understand proficiencies and completion dynamics.
+              Currently only NLPT and ViT based transformers are supported."
+              />
+              <LLMModelSelect
+                setCurrentModel={setCurrentModel}
+                modelsData={oaiModelsData}
+                defaultValue={BASE_MODEL}
+              />
+
+              <Collapsible
+                className="w-full space-y-2"
+                open={pMenu}
+                onOpenChange={setPMenu}
+              >
+                <div className="flex items-center justify-between">
+                  <div className="grid w-full grid-cols-1 gap-1">
+                    <LLMHoverLabel
+                      title="Hyperparameters"
+                      description="Tune Randomness, diversity, over constrainted token size and with established penalties for repeat tokens or highly occuring ones."
+                    />
+                  </div>
+                  <CollapsibleTrigger asChild>
+                    <Button variant="ghost" size="sm" className="p-0 w-9">
+                      <ChevronsUpDown className="w-5 h-5 mb-4" />
+                      <span className="sr-only">Toggle</span>
+                    </Button>
+                  </CollapsibleTrigger>
+                </div>
+                <CollapsibleContent>
+                  <TemperatureSelector
+                    defaultValue={[0.56]}
+                    setState={setTemperature}
+                    value={temperature}
+                  />
+                  <MaxLengthSelector
+                    defaultValue={[256]}
+                    setState={setMaxTokens}
+                    value={maxTokens}
+                  />
+                  <TopPSelector
+                    defaultValue={[0.9]}
+                    setState={setTopP}
+                    value={topP}
+                  />
+                  <FrequencyPenalty
+                    defaultValue={[0]}
+                    setState={setFrequencyPenalty}
+                    value={frequencyPenalty}
+                  />
+                  <PresencePenalty
+                    defaultValue={[0]}
+                    setState={setPresencePenalty}
+                    value={presencePenalty}
+                  />
+                </CollapsibleContent>
+              </Collapsible>
+            </LLMChildContainer>
+          </LLMParentContainer>
         </div>
-        <div className="flex gap-4">
-          <Link
-            href={siteConfig.links.docs}
-            target="_blank"
-            rel="noreferrer"
-            className={buttonVariants({ size: "lg" })}
-          >
-            Documentation
-          </Link>
-          <Link
-            target="_blank"
-            rel="noreferrer"
-            href={siteConfig.links.github}
-            className={buttonVariants({ variant: "outline", size: "lg" })}
-          >
-            GitHub
-          </Link>
-        </div>
-      </section>
-    </Layout>
+      </Tabs>
+    </Container>
   )
 }
+
+//   return <Login />;
+
+// }

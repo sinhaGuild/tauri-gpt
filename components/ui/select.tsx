@@ -19,13 +19,13 @@ const SelectTrigger = React.forwardRef<
   <SelectPrimitive.Trigger
     ref={ref}
     className={cn(
-      "flex h-10 w-full items-center justify-between rounded-md border border-slate-300 bg-transparent py-2 px-3 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-700 dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900",
+      "flex h-10 w-full items-center justify-between rounded-md border border-slate-300 bg-transparent py-2 px-3 text-sm placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:border-slate-600 dark:text-slate-50 dark:focus:ring-slate-400 dark:focus:ring-offset-slate-900",
       className
     )}
     {...props}
   >
     {children}
-    <ChevronDown className="h-4 w-4 opacity-50" />
+    <ChevronDown className="w-4 h-4 opacity-50" />
   </SelectPrimitive.Trigger>
 ))
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName
@@ -72,6 +72,7 @@ const SelectItem = React.forwardRef<
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Item
     ref={ref}
+    key={props.key}
     className={cn(
       "relative flex cursor-default select-none items-center rounded-sm py-1.5 pr-2 pl-8 text-sm font-medium outline-none focus:bg-slate-100 data-[disabled]:pointer-events-none data-[disabled]:opacity-50 dark:focus:bg-slate-700",
       className
@@ -80,7 +81,7 @@ const SelectItem = React.forwardRef<
   >
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <SelectPrimitive.ItemIndicator>
-        <Check className="h-4 w-4" />
+        <Check className="w-4 h-4" />
       </SelectPrimitive.ItemIndicator>
     </span>
 
@@ -103,11 +104,11 @@ SelectSeparator.displayName = SelectPrimitive.Separator.displayName
 
 export {
   Select,
-  SelectGroup,
-  SelectValue,
-  SelectTrigger,
   SelectContent,
-  SelectLabel,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 }

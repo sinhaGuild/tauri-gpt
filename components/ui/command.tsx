@@ -2,8 +2,8 @@
 
 import * as React from "react"
 import { DialogProps } from "@radix-ui/react-dialog"
-import { Command as CommandPrimitive, useCommandState } from "cmdk"
-import { ChevronsUpDown, Search } from "lucide-react"
+import { Command as CommandPrimitive } from "cmdk"
+import { Search } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Dialog, DialogContent } from "@/components/ui/dialog"
@@ -15,7 +15,7 @@ const Command = React.forwardRef<
   <CommandPrimitive
     ref={ref}
     className={cn(
-      "flex h-full w-full flex-col overflow-hidden rounded-lg bg-white dark:bg-slate-800",
+      "w-full flex h-full flex-col overflow-hidden rounded-lg bg-white dark:bg-slate-800",
       className
     )}
     {...props}
@@ -42,10 +42,10 @@ const CommandInput = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof CommandPrimitive.Input>
 >(({ className, ...props }, ref) => (
   <div
-    className="flex items-center border-b border-b-slate-100 px-4 dark:border-b-slate-700"
+    className="flex items-center px-4 border-b border-b-slate-100 dark:border-b-slate-700"
     cmdk-input-wrapper=""
   >
-    <Search className="mr-2 h-4 w-4 shrink-0 opacity-50" />
+    <Search className="w-4 h-4 mr-2 opacity-50 shrink-0" />
     <CommandPrimitive.Input
       ref={ref}
       className={cn(
@@ -78,7 +78,7 @@ const CommandEmpty = React.forwardRef<
 >((props, ref) => (
   <CommandPrimitive.Empty
     ref={ref}
-    className="py-6 text-center text-sm"
+    className="py-6 text-sm text-center"
     {...props}
   />
 ))
@@ -148,11 +148,11 @@ CommandShortcut.displayName = "CommandShortcut"
 export {
   Command,
   CommandDialog,
-  CommandInput,
-  CommandList,
   CommandEmpty,
   CommandGroup,
+  CommandInput,
   CommandItem,
-  CommandShortcut,
+  CommandList,
   CommandSeparator,
+  CommandShortcut,
 }

@@ -1,78 +1,44 @@
-# next-template
+# GPT Prompt Tauri App
 
-A Next.js 13 template for building apps with Radix UI and Tailwind CSS.
+Simple experiment recreating the _openai_ gpt prompt using [Tauri](https://github.com/tauri-apps/tauri), [RUST](https://www.rust-lang.org/) and [Nextjs](https://github.com/vercel/next.js/)
 
-## Features
+### Demo
 
-- Radix UI Primitives
-- Tailwind CSS
-- Fonts with `@next/font`
-- Icons from [Lucide](https://lucide.dev)
-- Dark mode with `next-themes`
-- Automatic import sorting with `@ianvs/prettier-plugin-sort-imports`
+![](https://i.imgur.com/Hhaoguc.gif)
 
-## Tailwind CSS Features
+With `native` titlebar
+<br/>
 
-- Class merging with `taiwind-merge`
-- Animation with `tailwindcss-animate`
-- Conditional classes with `clsx`
-- Variants with `class-variance-authority`
-- Automatic class sorting with `eslint-plugin-tailwindcss`
+![](https://i.imgur.com/f9QNvwc.gif)
 
-## Import Sort
+## How to use
 
-The starter comes with `@ianvs/prettier-plugin-sort-imports` for automatically sort your imports.
+1. Clone and Install dependencies
 
-### Input
+```sh
+git clone https://github.com/sinhaguild/tauri-gpt
 
-```tsx
-import * as React from "react"
-import Link from "next/link"
+cd tauri-gpt
+npm install
 
-import { siteConfig } from "@/config/site"
-import { buttonVariants } from "@/components/ui/button"
-import "@/styles/globals.css"
-import { twMerge } from "tailwind-merge"
-
-import { NavItem } from "@/types/nav"
-import { cn } from "@/lib/utils"
 ```
 
-### Output
+2. Update environment variables
 
-```tsx
-import * as React from "react"
-// React is always first.
-import Link from "next/link"
-// Followed by next modules.
-import { twMerge } from "tailwind-merge"
-
-// Followed by third-party modules
-// Space
-import "@/styles/globals.css"
-// styles
-import { NavItem } from "@/types/nav"
-// types
-import { siteConfig } from "@/config/site"
-// config
-import { cn } from "@/lib/utils"
-// lib
-import { buttonVariants } from "@/components/ui/button"
-
-// components
+```sh
+mv .env.example .env
 ```
 
-### Class Merging
+Update `OPENAI_API_KEY` with your own, which can be procured from [here](https://platform.openai.com/account/api-keys).
 
-The `cn` util handles conditional classes and class merging.
+3. Run
 
-### Input
-
-```ts
-cn("px-2 bg-slate-100 py-2 bg-slate-200")
-// Outputs `p-2 bg-slate-200`
+```sh
+npm run tauri dev
 ```
 
-## License
+4. Build
 
-Licensed under the [MIT license](https://github.com/shadcn/ui/blob/main/LICENSE.md).
+```sh
+npm run tauri build
+```
