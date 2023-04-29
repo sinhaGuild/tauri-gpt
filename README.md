@@ -4,14 +4,15 @@ Simple experiment recreating the _openai_ gpt prompt using [Tauri](https://githu
 
 ### Demo
 
-![](https://i.imgur.com/Hhaoguc.gif)
-![](https://i.imgur.com/cq1FHIG.png)
-![](https://i.imgur.com/zhxRez6.png)
-
 With `native` titlebar
 <br/>
 
-![](https://i.imgur.com/kUzB0Mx.gif)
+![](./tauri-gpt.gif)
+
+With `custom` titlebar
+<br/>
+
+![](./tauri-gpt2.gif)
 
 ## How to use
 
