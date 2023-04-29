@@ -5,11 +5,12 @@ Simple experiment recreating the _openai_ gpt prompt using [Tauri](https://githu
 ### Demo
 
 ![](https://i.imgur.com/Hhaoguc.gif)
+![](https://i.imgur.com/cq1FHIG.png)
 
 With `native` titlebar
 <br/>
 
-![](https://i.imgur.com/f9QNvwc.gif)
+![](https://i.imgur.com/kUzB0Mx.gif)
 
 ## How to use
 
